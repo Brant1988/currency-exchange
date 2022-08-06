@@ -3,10 +3,13 @@
   padding: 0;
 }
 
+
 .app {
-  margin-top: 20px;
-  margin-left: 30px;
+  align-items: center;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 40px;
 }
 
 .amount {
@@ -33,4 +36,17 @@
 .result {
   margin-top: 50px;
   border-bottom: 1px solid gray;
+}
+
+.control_panel {
+  margin: auto;
+  display: flex;
+}
+
+.chart {
+  margin: auto;
+  margin-top: 20px;
+  width: 650px;
+  height: 250px ;
+  position: relative;
 }
