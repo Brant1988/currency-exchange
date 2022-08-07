@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-import { format } from "date-fns";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -12,7 +11,8 @@ import {
   Legend,
 } from "chart.js";
 import { CurrencyContext } from "../context/currencyContext";
-import axios from "axios";
+import { useChartData } from "../hooks/useChartData";
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -25,34 +25,7 @@ ChartJS.register(
 
 const Chart = () => {
   const { selectedCurrency } = useContext(CurrencyContext);
-
-  const date = new Date();
-  const fromDate = format(date.setMonth(date.getMonth() - 1), "yyyy-MM-dd ");
-  const toDate = format(Date.now(), "yyyy-MM-dd ");
-  const URL = `https://api.exchangerate.host/timeseries?start_date=${fromDate}&end_date=${toDate}&base=${selectedCurrency.from}`;
-  const [rateList, setRateList] = useState([]);
-  const [dateList, setDateList] = useState([]);
-  const [rates, setRates] = useState([]);
-
-  const getData = async () => {
-    const response = await axios.get(URL);
-    setRateList(response.data.rates);
-  };
-
-  useEffect(() => {
-    setDateList(Object.keys(rateList));
-  }, [rateList]);
-
-  useEffect(() => {
-    if (selectedCurrency.from) getData();
-  }, [selectedCurrency.from]);
-
-  useEffect(() => {
-    if (selectedCurrency.to)
-      setRates(
-        Object.values(rateList).map((el) => el[selectedCurrency.to].toFixed(2))
-      );
-  }, [rateList, selectedCurrency.to]);
+  const { dateList, rates } = useChartData();
 
   const options = {
     responsive: true,

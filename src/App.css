@@ -4,12 +4,24 @@
 }
 
 
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .app {
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 40px;
+  height: 60%;
+  width: 60%;
+  margin: auto;
+  margin-top: 60px;
+  padding: 20px 20px;
+  border: 1px solid gray;
+  border-radius: 5px;
 }
 
 .amount {
